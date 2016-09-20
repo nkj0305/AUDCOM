@@ -1,0 +1,80 @@
+<HTML>
+    <HEAD>
+        <TITLE>
+            Spark Test Page
+        </TITLE>
+
+<script type='text/javascript' src='/client/js/jquery.min.js'></script>
+<script>
+
+(function($){
+    $(document).ready(function() {
+        var dragged = false;
+        $("#f_button").mousedown(function() {
+            dragged = true;
+            //alert(dragged);
+            
+        });
+        $("#f_button").mouseup(function() {
+            dragged = false;
+//alert('-11---');
+        });
+
+        function movebutton(e) {
+            if (dragged == true) {
+                var box_right,box_top;
+                box_right = $("#f_button").css('right');
+                box_top = $("#f_button").css('top');
+               var posX = $(this).offset().left;
+               var posY = $(this).offset().top;
+                $("#f_button").css('left',(e.pageX - posX));
+                $("#f_button").css('top',(e.pageY - posY));
+            }
+        }
+        $("#main_container").mousemove(movebutton);
+        $("#main").mousemove(movebutton);
+        $("#spark").mousemove(movebutton);
+        $("#siteloader").html('<object data="https://web.ciscospark.com/" style="height:100%;width:100%;"/>');
+    });
+})(jQuery);
+
+
+</script>
+    </HEAD>
+    <BODY>
+    
+<div id='main_container' style="height:100%;width:100%;border: 0px solid red">
+    <div id="siteloader"  style="height:100%;width:100%;border: 0px solid blue"></div>
+    <div id='main' style="height:10%;width:10%;border: 0px solid yellow;z-index=2;position: fixed;    top: 0px;    left: 0;" >
+        <div id="f_button" style="position: fixed;	top: 80px;    left: 0;    border: 0px solid #73AD21;z-index=5">
+            <button id="start_button" ondblclick="startButton(event)" >
+                <img id="start_img" src="/mic.gif" alt="Start">
+            </button>
+       </div>
+    </div>
+
+
+<!-- Information division -->
+    <div id="info">
+      <p id="info_start">Click on the microphone icon and begin speaking.</p>
+      <p id="info_speak_now">Speak now.</p>
+      <p id="info_no_speech">No speech was detected. You may need to adjust your
+        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+          microphone settings</a>.</p>
+      <p id="info_no_microphone" style="display:none">
+        No microphone was found. Ensure that a microphone is installed and that
+        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+        microphone settings</a> are configured correctly.</p>
+      <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+      <p id="info_denied">Permission to use microphone was denied.</p>
+      <p id="info_blocked">Permission to use microphone is blocked. To change,
+        go to chrome://settings/contentExceptions#media-stream</p>
+      <p id="info_upgrade">Web Speech API is not supported by this browser.
+         Upgrade to <a href="//www.google.com/chrome">Chrome</a>
+         version 25 or later.</p>
+    </div>
+</div>
+<script type='text/javascript' src="/client/js/buttonClick.js"></script>
+    </BODY>
+</HTML
+

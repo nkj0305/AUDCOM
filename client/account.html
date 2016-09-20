@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html >
+  <head>
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="audspark_logo.PNG" />
+    <title>AUDSPARK.</title>
+    
+    <!--link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"-->
+    <link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.0-rc.5/angular-material.css'>
+    <link rel='stylesheet prefetch' href='https://material.angularjs.org/1.1.0-rc.5/docs.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.7/angular-material.min.css'>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
+</head>
+<body>
+<div style="background-color:#0F80C0" class="md-toolbar-tools">
+    <a href="#/">
+        <md-button style="position:absolute;top:8px;" class="md-icon-button" aria-label="Icon" >
+         <!--onClick="window.location='/';-->
+         <md-icon style="color:white;font:bold;" class="material-icons md-dark md-24">home</md-icon>
+        </md-button>
+    </a>
+    <span flex></span>
+      <h3><b><span style="font-family:'Forte';font-size:44px;color:#F7A04A;"> AUDSPARK</span></b></h3>
+    <span flex></span>
+    <a href="#">
+        <md-icon style="position:absolute;top:10px;left:95.5%;color:white;font:bold;" 
+        onClick="if(confirm('Sure! Want to log out?')) window.location='/logout';" 
+        class="material-icons md-light md-24 md-avatar-icon">exit_to_app</md-icon>
+    </a>
+</div>
+<span flex></span>
+</br>
+
+
+<div ng-app="MyApp">
+    <div ng-controller="refer">
+        <div class="navbar navbar-default">
+        <ul class="nav nav-pills nav-justified">
+                <li ng-class="{ active: isSet(1) }"><a href ng-click="setTab(1)" data-toggle="tab">
+<md-icon style="color:black;font:bold;" class="material-icons md-dark md-12">account_balance</md-icon><span flex></span>
+                    ROOMS
+                    </a></li>
+                <li ng-class="{ active: isSet(2) }"><a href ng-click="setTab(2)" data-toggle="tab">
+
+<md-icon style="color:black;font:bold;" class="material-icons md-dark md-12">person</md-icon><span flex></span>
+                    PROFILE
+                    </a></li>
+                <li ng-class="{ active: isSet(3) }"><a href ng-click="setTab(3)" data-toggle="tab">
+
+<md-icon style="color:black;font:bold;" class="material-icons md-dark md-12">room</md-icon><span flex></span>
+                    ABOUT
+                    </a></li>
+        </ul>
+        </div>  
+        <div class="tab-content"> 
+            <div class="tab-pane active" id="tab1">
+                <div ng-cloak flex=""  class="gridListdemoDynamicTiles" >
+                <ng-view></ng-view>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab2">Panel 2 Content</div>
+            <div class="tab-pane" id="tab3">Panel 3 Content</div>
+        </div>
+    </div>
+</div>
+
+    <div id="footer">Powered by Cisco Spark , 2016 &nbsp</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28//angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js'></script>
+    <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+    <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.0-rc.5/angular-material.js'></script>
+    <script src="js/index.js"></script>
+    <!--script src="js/buttonClick.js"></script-->
+</body>
+</html>
+

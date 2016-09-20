@@ -1,0 +1,119 @@
+<div style='height:100%;' layout="column" flex id="content1">
+    <div class = "md-toolbar-tools">
+        <input  type="text" style="border-width:3px;border-radius:4px; width:200px;font-size:14px; font-family:Merriweather;  solid" 
+                class="asearch" ng-model="searchString" placeholder="Search" />
+        <span flex></span>
+        <div ng-controller="VoiceController">
+            <button id="start_button" accesskey="l" onClick="startButton(event)" ng-click="input_incoming=!input_incoming">
+                <img id="start_img" title = "Operate with Voice" ng-src="/mic.png" alt="Description" height="35" width="40" /> 
+            </button>
+            <!--div style="position:relative" ng-show="input_incoming">
+            <p  style="font-size:11px;color:red;">Click to End</p></div-->
+        </div>
+    </div>
+
+    <div class="container" id="maincontainer">
+
+    <div ng-controller="CreateRoomController" style="background-color:#EBEBEB ;height:700px;width:auto;
+            border-radius: 2px; border-color: #DEDEDE;border-style: solid;" 
+        class ="col-xs-1" layout="row" >
+        
+        <a class="btn-default"  >
+        <img ng-click="toggleModal()" height=auto; cursor=pointer; cursor= hand;
+            align="center" ng-src="../img/plus sign.png" alt="Create Room" height="42" width="42" 
+            title="Create Room"/>
+             
+        </a>
+        <br>
+        <modal title="Create Room Form" visible="showModal" id="createRoomModal">
+            <form name="createRoomForm" role="form" autocomplete="off" ng-submit="showRoom();" novalidate>
+                <div class="form-group">
+                    <label >Spark Room Name</label>
+                    <input autofocus="autofocus" ng-modal="room" ng-model="user.name" name="room" type="text" value = ""  class="form-control" id="roomname" placeholder="Room Name" required />
+                    <p ng-show="createRoomForm.$invalid && !createRoomForm.$pristine" class="help-block">Room name is required.</p>
+                </div>
+                <button type="submit" class="btn btn-primary" ng-disabled="createRoomForm.$invalid">Create Room</button>
+            </form>
+        </modal>
+    </div>
+
+<div class="row" style ="height:700px;overflow-y:auto" class ="col-xs-26" layout="row" flex>
+
+<div id="mydiv" ng-hide="tiles">
+  <img src="LoadingImage.gif" class="ajax-loader"   ></img>
+  Loading Rooms.. Please wait..
+</div>
+
+<md-content  ng-show="tiles" style='height:100%;'flex layout="column"  class="md-padding">
+    <md-grid-list  md-cols="1" md-cols-sm="2" md-gutter-gt-sm="60px" md-cols-md="4" md-cols-gt-md="6" 
+       md-row-height="10em" md-cols-xs="1" md-gutter-gt-xs="10px" md-gutter="60px">
+        <md-grid-tile style= "border-radius: 10px 10px 0px 10px; border-color: #B4E0FD;border-style: solid;"
+            ng-repeat="tile in tiles | filter: searchString" md-rowspan="{{tile.span.row}}" md-colspan="{{tile.span.col}}" 
+            md-colspan-sm="1" md-colspan-xs="1" >
+            
+            <div class ="myimg" id ="rawimage">  </div>
+            
+            <md-grid-tile-header class = "tile-title">
+                <div style="width:auto;float:left;height: 90px;line-height: 90px;">
+                    <a ng-href ="#/expanded/{{tile.id}}/{{tile.title}}" 
+                    title="{{tile.title}}"
+                    ><b>{{tile.title|cut:true:20:' ...'}}</b></a>
+                </div>
+                <div style="width:auto;float:right;height: 90px;line-height: 90px;">
+                    <md-button class="md-raised" style="margin:1px" title="Exit this room">
+                        <md-icon style="color:black;font:bold;" class="material-icons md-16 md-dark "
+                        ng-click="leaveRoomHome(tile.id)" confirmation-needed="Sure you want to exit this room?">exit_to_app</md-icon >
+                    </md-button>
+                     
+                    <md-button class="md-raised" 
+                        home-popover 
+                        my-directive-var="tile.id"
+                        data-placement="bottom" class="btn btn-md btn-success" data-container="body" data-trigger="hover" 
+                        data-toggle="popover" title="<b>Room Members</b>" data-html="true" 
+                        data-content='<table class="table table-condensed table-striped">
+                                            <tbody>
+                                                <tr ng-repeat="item in viewMembersInfo">
+                                                <td ng-bind-html="item.avatar | unsafe"> </td>
+                                                <td ng-bind="item.personDisplayName"></td>
+                                                </tr>
+                                           </tbody>
+                                        </table>'
+                    >
+                        <md-icon style="color:black;font:bold;" class="material-icons md-dark"
+                        >group</md-icon>
+                    </md-button> 
+                    <!--md-button class="md-raised" style="margin:1px" ng-controller="ViewMembersController" ng-click="memberDetails(tile.id)" >
+                    <md-icon style="color:black;font:bold;" class="material-icons md-dark md-16"
+                         >group</md-icon>
+                    <md-tooltip class="testtool" >
+                         <ul>
+                          <li ng-repeat="data in viewMembersInfo"> {{data.personDisplayName}}</li>
+                          
+                        </ul>
+                    </md-tooltip>                    
+                    </md-button-->
+               </div>
+            </md-grid-tile-header>
+            <!--div  id={{tile.id}} 
+            
+                style="color:#000000;z-index:90">
+                   <ul>
+                     <li ng-repeat="item in membersDetailedHomeInfo">
+                      {{item.personDisplayName}}
+                    </li>        
+                    </ul>
+            </div-->     
+            
+            <md-grid-tile-footer class="short-desc" >
+                <h3>{{tile.shortDesc}}</h3>
+            </md-grid-tile-footer>
+        </md-grid-tile>
+    </md-grid-list>
+</md-content>
+
+</div>
+               
+
+</div>
+</div>
+

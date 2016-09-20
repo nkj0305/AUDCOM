@@ -1,0 +1,84 @@
+.header_div{
+	
+	height:70px;
+	
+	
+}
+
+.center_div{
+	height: 700px;
+	background-image: url('../img/background_img.jpg');
+	display:block;
+	background-size: 100% 100%;
+	opacity: 1;
+	filter:alpha(opacity=50%);
+	
+}
+
+.footer_div{
+	height:20px;
+	background-color:#CCCCCC;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	text-align: right;
+	position: fixed;
+}
+
+.aricent_logo{
+	width: 100px;
+	height:70px;
+	display: block;
+	margin-left: auto;
+	margin-right:auto;
+	
+}
+/*
+.audspark_logo{
+	width: 500px;
+	height:200px;
+	position: relative;
+	left: 500px;
+	top: 120px;
+	
+}
+*/
+.audspark_div{
+		max-width: 25%;
+		position: relative;
+		margin: 0 auto;
+		top:10%;
+	
+}
+
+.audspark_logo{
+	width:100%;
+	height:auto;
+	
+	
+}
+
+.button_div{
+		max-width: 20%;
+		position: relative;
+		margin: 0 auto;
+		top:30%;
+				
+}
+
+#trig_but{
+	width:80%;
+	height:auto;
+}
+
+#footer {
+   position:absolute;
+   top:98%;
+   width:100%;
+   text-align:right;
+   height:20px;   /* Height of the footer */
+   background:#EBEBEB;
+   font-weight:bold;
+ /* margin-left: 170px;*/
+  color:#01A2A6;
+}

@@ -1,0 +1,174 @@
+<div class = "md-toolbar-tools">
+        <input  type="text" style="border-width:3px;border-radius:4px; width:200px;font-size:14px; font-family:Merriweather;  solid" 
+                class="asearch" ng-model="searchString" placeholder="Search" />
+        <span flex></span>
+        <div ng-controller="VoiceController">
+            <button id="start_button"  accesskey="l" onClick="startButton(event)" ng-click="input_incoming=!input_incoming">
+                <img id="start_img" title = "Operate with Voice" ng-src="/mic.png" alt="Description" height="35" width="40" /> 
+            </button>
+            <!--div style="position:relative" ng-show="input_incoming">
+            <p  style="font-size:11px;color:red;">Click to End</p></div-->
+        </div>
+</div>
+
+
+<div class="container" id="maincontainer">
+
+    <div  ng-controller="CreateRoomController" style="background-color:#EBEBEB ;height:700px;width:auto;
+            border-radius: 2px; border-color: #DEDEDE;border-style: solid;" 
+        class ="col-xs-1" layout="row" >
+        
+        <a class="btn-default"  >
+        <img ng-click="toggleModal()" height=auto; cursor=pointer; cursor= hand;
+            align="center" ng-src="../img/plus sign.png" alt="Create Room" height="42" width="42" 
+            title="Create Room"/>
+             
+        </a>
+        <br>
+        <modal title="Create Room Form" visible="showModal" id="createRoomModal">
+            <form name="createRoomForm" role="form" autocomplete="off" ng-submit="showRoom();" novalidate>
+                <div class="form-group">
+                    <label >Spark Room Name</label>
+                    <input autofocus="autofocus" ng-modal="room" ng-model="user.name" name="room" type="text" value = ""  class="form-control" id="roomname" placeholder="Room Name" required />
+                    <p ng-show="createRoomForm.$invalid && !createRoomForm.$pristine" class="help-block">Room name is required.</p>
+                </div>
+                <button type="submit" class="btn btn-primary" ng-disabled="createRoomForm.$invalid">Create Room</button>
+            </form>
+        </modal>
+    </div>
+
+<!-------------------------------------------------------------------------------->
+
+<div class="openroom">
+
+    <div id=roompanel style="overflow:auto;width:100%;">
+        <div style="float:left;max-width:70%;overflow:auto;position:absolute;bottom:5px" title="{{roomTitle}}">
+        <p class="roomname" >&nbsp;{{roomTitle |cut:true:25:' ...'}} </p>
+        </div>
+    
+        <div style="float:right;" class="leaveroomcontainer_temp">
+         
+            <md-button class="md-raised" title="Exit this room">
+                <md-icon style="color:black;font:bold;" class="material-icons md-dark"
+                ng-click="leaveRoom()" confirmation-needed="Sure you want to exit this room?">exit_to_app</md-icon >
+            </md-button>
+            <md-button class="md-raised"  
+                ng-click="addmemberinput = (addmemberinput) ? false : true;" title="Add member to this room">
+                <md-icon style="color:black;font:bold;" class="material-icons md-dark"
+                >person_add</md-icon >
+            </md-button>
+        
+            <md-button class="md-button md-raised" 
+                popover data-placement="bottom" class="btn btn-md btn-success" data-container="body" data-trigger="hover" 
+                data-toggle="popover" title="<b>Room Members</b>" data-html="true" 
+                data-content='<table class="table table-condensed table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="item in membersDetailedInfo">
+                                        <td ng-bind-html="item.avatar | unsafe"> </td>
+                                        <td ng-bind="item.personDisplayName"></td>
+                                        
+                                        </tr>
+                                   </tbody>
+                                </table>'
+            >
+                <md-icon style="color:black;font:bold;" class="material-icons md-dark"
+                >group</md-icon>
+            </md-button>
+           <md-button class="md-raised" title="Return to rooms">
+                <a href="#"><md-icon style="color:black;font:bold;" class="material-icons md-dark">reply_all</md-icon ></a>
+            </md-button>
+
+           </div>
+    </div>           
+    <div id="chatwindow" ng-controller="ChatController" >           
+    
+    <div class="memberlist" ng-show="member_list" >
+        <li ng-repeat="item in membersDetailedInfo">
+          {{item.personDisplayName}}
+        </li>        
+    </div>
+    <div  class="addmemberinput" ng-show="$parent.addmemberinput">
+        <form name="addmemberform" ng-submit="addMember(roomId, roomTitle);" style="width:auto;">
+            <input type="email" style="height:30px" ng-model="memName" placeholder="Type Email" ng-required="true">
+            <input type="submit" class="btn" value="Ok" >
+        </form>
+    </div>
+    
+ <div id="messagewindow" scroll="messages"> 
+    <br><br>
+    <p class="memberName" align="center" id="roommembers" ng-repeat="item in memberships">
+        {{item.personDisplayName}} was added to this room - {{item.created | date:'yyyy-MM-dd hh:mm:ss a'}}
+    </p>
+    <br>
+    <div class="messages cf" ng-repeat="item in messages | reverse track by $index">
+        <hr>
+        <p class="{{(userEmail[0]==item.personEmail)?'selfMessageEmail':'otherMessageEmail'}}">   {{item.personEmail}}:&nbsp;&nbsp;</p>
+        <p class="{{(userEmail[0]==item.personEmail)?'selfMessageBody':'otherMessageBody'}}">{{item.text}}&nbsp;&nbsp;</p>
+    </div>
+ </div>
+ <div id="inputcontainer" class="input">
+    <form ng-submit="send()">
+        <!--input type="text" style="width:89%;background-color:rgb(240,240,240);" size=61 ng-model="text" placeholder="Messages"-->
+        <textarea ng-enter="send()" style="width:100%;height:45px;background-color:rgb(240,240,240);" size=61 ng-model="text" placeholder="Messages">
+            </textarea>
+        <input type="hidden" name="roomId" value={{roomId}}>
+        <!--input type="submit" style="height:40px;" class="span1 btn btn-primary" value="Send" ng-disabled="!text"-->
+    </form>
+</div>
+</div>
+</div>
+
+<!----------------------------------------------------------------------------------------------->
+
+<span flex></span>
+<div style="float:right;overflow:auto;height:680px;overflow-x:hidden" class ="col-xs-3" layout="row" flex>
+
+<md-content  style='width:"11px"'flex layout="column"  class="md-padding">
+<md-grid-list  layout-fill flex md-cols-sm="1" md-cols-md="1" md-cols-gt-md="1" md-row-height-sm="20%" 
+     md-row-height="110px" md-gutter="50px">
+    <md-grid-tile  style= "border-radius: 10px 10px 0px 10px; border-color: #B4E0FD;border-style: solid;" 
+    ng-repeat="tile in exptiles | filter: searchString" md-rowspan="{{tile.span.row}}" md-colspan="{{tile.span.col}}" 
+    md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background">
+<div align ="right">
+</div>
+
+<div class ="myimg" id ="rawimage">  </div>
+
+    <md-grid-tile-header class = "tile-title"><h3>
+        <div style="width:auto;float:left;height: 90px;line-height: 90px;">
+            <a title="{{tile.title}}" ng-href ="#/expanded/{{tile.id}}/{{tile.title}}"><b>
+                  {{tile.title |cut:true:13:' ...'}}</b></a></h3>
+                  
+            <md-button style="float:right;height:15px;line-height:15px; margin:1px;top:25px"
+                class="md-raised" 
+                home-popover 
+                my-directive-var="tile.id"
+                data-placement="bottom" class="btn btn-md btn-success" data-container="body" data-trigger="hover" 
+                data-toggle="popover" title="<b>Room Members</b>" data-html="true" 
+                data-content='<table class="table table-condensed table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="item in viewMembersInfo">
+                                        <td ng-bind-html="item.avatar | unsafe"> </td>
+                                        <td ng-bind="item.personDisplayName"></td>
+                                        </tr>
+                                   </tbody>
+                                </table>'
+            >
+                <md-icon style="color:black;font:bold;" class="material-icons md-dark"
+                >group</md-icon>
+            </md-button> 
+
+        </div>
+        
+      </md-grid-tile-header>
+      <md-grid-tile-footer class="short-desc" >
+        <h3>{{tile.shortDesc}}</h3></md-grid-tile-footer>
+    </md-grid-tile>
+    </md-grid-list>
+</md-content>
+</div>
+
+
+
+</div>
+</div>

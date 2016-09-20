@@ -1,0 +1,23 @@
+[
+  {
+   "name": "sachin mehrotra",
+   "email":"samehrot@cisco.com",
+   "company" : "Aricent",
+   "workPhone" : "+91-987654321",
+   "mobile"  : "+91-987654321"
+  },
+  {
+   "name": "priyanka yadav",
+   "email":"priyadav@cisco.com",
+   "company" : "Aricent",
+   "workPhone" : "+91-987654321",
+   "mobile"  : "+91-987654321"
+  },
+  {
+   "name": "surender bisht",
+   "email":"surender.bisht@aricent.com",
+   "company" : "Aricent",
+   "workPhone" : "+91-987654321",
+   "mobile"  : "+91-987654321"
+  }
+]
